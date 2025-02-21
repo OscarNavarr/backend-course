@@ -14,6 +14,7 @@ Cours de développement backend via Python et [FastAPI](https://fastapi.tiangolo
 
 ## Préparer son environnement de développement
 
+
 > Testé avec Python 3.10 et FastAPI 0.115
 
 - [Installer Python](https://wiki.python.org/moin/BeginnersGuide/Download)
