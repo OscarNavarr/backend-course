@@ -12,7 +12,8 @@ class Planning(SQLModel, table=True):
 
 
 sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+# sqlite_url = f"sqlite:///{sqlite_file_name}"
+sqlite_url = "postgrsql://postgre:Aucun66000!@localhost:5432/val_max_alex_oscar"
 
 connect_args = {"echo": True}
 engine = create_engine(sqlite_url, connect_args=connect_args)
