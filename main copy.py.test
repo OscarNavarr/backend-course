@@ -1,0 +1,69 @@
+from typing import Union, List
+import uvicorn
+
+from fastapi import FastAPI, HTTPException, Depends
+from sqlalchemy.orm import Session
+from starlette import status
+import models
+import schemas
+from src.main.database import get_db
+
+if __name__ == "main":
+    uvicorn.run("main:app", host="127.0.0.1", port="8000")
+    # main:app --host 127.0.0.1 --port 80
+
+app = FastAPI()
+
+
+@app.get("/heroes/")
+def read_heroes(
+    session: SessionDep,
+    offset: int = 0,
+    limit: Annotated[int, Query(le=100)] = 100,
+) -> list[Hero]:
+    heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
+    return heroes
+
+
+@app.get("/heroes/{hero_id}")
+def read_hero(hero_id: int, session: SessionDep) -> Hero:
+    hero = session.get(Hero, hero_id)
+    if not hero:
+        raise HTTPException(status_code=404, detail="Hero not found")
+    return hero
+
+
+# @app.get("/")
+# def read_root():
+#     return {"Hello": "World"}
+
+
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Union[str, None] = None):
+#     return {"item_id": item_id, "q": q}
+
+# @app.get('/', response_model=List[schemas.CreatePost])
+# def read_root(db: Session = Depends(get_db)):
+#     post = db.query(models.Post).all()
+
+#     return  post
+
+# @app.post('/', status_code=status.HTTP_201_CREATED, response_model=List[schemas.CreatePost])
+# def test_posts_sent(post_post:schemas.CreatePost, db:Session = Depends(get_db)):
+
+#     new_post = models.Post(**post_post.dict())
+#     db.add(new_post)
+#     db.commit()
+#     db.refresh(new_post)
+
+#     return [new_post]
+
+
+# @app.get('/{id}', response_model=schemas.CreatePost, status_code=status.HTTP_200_OK)
+# def get_test_one_post(id:int ,db:Session = Depends(get_db)):
+
+#     idv_post = db.query(models.Post).filter(models.Post.id == id).first()
+
+#     if idv_post is None:
+#         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"The id: {id} you requested for does not exist")
+#     return idv_post
