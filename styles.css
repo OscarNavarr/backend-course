@@ -1,12 +1,21 @@
-.body{
-    background-color: lightblue;
+body{
+    margin: 0;
 }
 
-.h1{
-    color: blue;
-    font: bold;
+header{
+    background-color:#006699;
+    color: white;
+    font-family: Helvetica,Arial,Verdana,sans-serif;
+    font-weight: bold;
+    text-wrap: none;
 }
 
-.texte{
-    color: red;
+h3{ 
+    text-decoration: underline;
+    margin-top: 0;
+    padding: 10px 2px 15px;
+}
+
+.Calendrier{
+    color: black;
 }
