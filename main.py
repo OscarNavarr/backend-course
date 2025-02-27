@@ -7,19 +7,68 @@ connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", pa
 
 cursor = connection.cursor()
 
+# cursor.execute("""
+#     SELECT * from public.consultations
+#     SELECT * from public.enseignants;"
+#     SELECT * from public.cours;" +
+#     SELECT * from public.promotions;" 
+#     SELECT * from public.utilisateurs;
+#     SELECT * from public.salles;"""
+# )
+
+cursor.execute("SELECT * from public.consultations;")
+cons_record = cursor.fetchall()
+cursor.execute("SELECT * from public.enseignants;")
+ens_record = cursor.fetchall()
+cursor.execute("SELECT * from public.cours;")
+cours_record = cursor.fetchall()
+cursor.execute("SELECT * from public.promotions;")
+promo_record = cursor.fetchall()
+cursor.execute("SELECT * from public.utilisateurs;")
+users_record = cursor.fetchall()
 cursor.execute("SELECT * from public.salles;")
+salles_record = cursor.fetchall()
 
-# Fetch all rows from database
-record = cursor.fetchall()
-
-print("Data from Database:- ", record)
+print("Data from Database:- ", cons_record)
 
 app = FastAPI()
 
 
 @app.get("/")
 def read_root():
-    return record
+    return {
+            "consultations" : cons_record,
+            "enseignants" : ens_record,
+            "cours" : cours_record,
+            "promotions" : promo_record,
+            "utilisateurs" : users_record,
+            "salles" : salles_record
+        }
+
+@app.get("/consultations")
+def read_cons():
+    return {"consultations" : cons_record}
+
+@app.get("/enseignants")
+def read_cons():
+    return {"enseignants" : ens_record}
+
+@app.get("/cours")
+def read_cons():
+    return {"cours" : cours_record}
+
+@app.get("/promotions")
+def read_cons():
+    return {"promotions" : promo_record}
+
+@app.get("/utilisateurs")
+def read_cons():
+    return {"utilisateurs" : users_record}
+
+@app.get("/salles")
+def read_cons():
+    return {"salles" : salles_record}
+
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
