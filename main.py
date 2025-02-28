@@ -1,62 +1,78 @@
-from typing import Annotated
+from typing import Union
+from fastapi import FastAPI, HTTPException
+import uvicorn
+import psycopg2
 
-from fastapi import Depends, FastAPI, HTTPException, Query
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", password="Aucun66", host="localhost", port=5432)
 
+cursor = connection.cursor()
 
-class Planning(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
-    age: int | None = Field(default=None, index=True)
-    secret_name: str
+# cursor.execute("""
+#     SELECT * from public.consultations
+#     SELECT * from public.enseignants;"
+#     SELECT * from public.cours;" +
+#     SELECT * from public.promotions;" 
+#     SELECT * from public.utilisateurs;
+#     SELECT * from public.salles;"""
+# )
 
+cursor.execute("SELECT * from public.consultations;")
+cons_record = cursor.fetchall()
+cursor.execute("SELECT * from public.enseignants;")
+ens_record = cursor.fetchall()
+cursor.execute("SELECT * from public.cours;")
+cours_record = cursor.fetchall()
+cursor.execute("SELECT * from public.promotions;")
+promo_record = cursor.fetchall()
+cursor.execute("SELECT * from public.utilisateurs;")
+users_record = cursor.fetchall()
+cursor.execute("SELECT * from public.salles;")
+salles_record = cursor.fetchall()
 
-sqlite_file_name = "database.db"
-# sqlite_url = f"sqlite:///{sqlite_file_name}"
-sqlite_url = "postgrsql://postgre:Aucun66000!@localhost:5432/val_max_alex_oscar"
-
-connect_args = {"echo": True}
-engine = create_engine(sqlite_url, connect_args=connect_args)
-
-
-# def create_db_and_tables():
-#     SQLModel.metadata.create_all(engine)
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
-
-
-SessionDep = Annotated[Session, Depends(get_session)]
+print("Data from Database:- ", cons_record)
 
 app = FastAPI()
 
-# @app.on_event("startup")
-# def on_startup():
-#     create_db_and_tables()
 
-# @app.post("/heroes/")
-# def create_hero(hero: Hero, session: SessionDep) -> Hero:
-#     session.add(hero)
-#     session.commit()
-#     session.refresh(hero)
-#     return hero
+@app.get("/")
+def read_root():
+    return {
+            "consultations" : cons_record,
+            "enseignants" : ens_record,
+            "cours" : cours_record,
+            "promotions" : promo_record,
+            "utilisateurs" : users_record,
+            "salles" : salles_record
+        }
+
+@app.get("/consultations")
+def read_cons():
+    return {"consultations" : cons_record}
+
+@app.get("/enseignants")
+def read_cons():
+    return {"enseignants" : ens_record}
+
+@app.get("/cours")
+def read_cons():
+    return {"cours" : cours_record}
+
+@app.get("/promotions")
+def read_cons():
+    return {"promotions" : promo_record}
+
+@app.get("/utilisateurs")
+def read_cons():
+    return {"utilisateurs" : users_record}
+
+@app.get("/salles")
+def read_cons():
+    return {"salles" : salles_record}
 
 
-@app.get("/planning/")
-def read_plannings(
-    session: SessionDep,
-    offset: int = 0,
-    limit: Annotated[int, Query(le=100)] = 100,
-) -> list[Planning]:
-    plannings = session.exec(select(Planning).offset(offset).limit(limit)).all()
-    return plannings
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
 
-
-@app.get("/planning/{planning_id}")
-def read_planning(planning_id: int, session: SessionDep) -> Planning:
-    planning = session.get(Planning, planning_id)
-    if not planning:
-        raise HTTPException(status_code=404, detail="Planning not found")
-    return planning
+if __name__ == "__main__":
+    uvicorn.run(app, host='127.0.0.1', port=8000)
