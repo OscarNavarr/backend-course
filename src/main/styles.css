@@ -3,6 +3,7 @@ body{
 }
 
 header{
+    padding: 5px;
     background-color:#006699;
     color: white;
     font-family: Helvetica,Arial,Verdana,sans-serif;
@@ -13,9 +14,12 @@ header{
 h3{ 
     text-decoration: underline;
     margin-top: 0;
-    padding: 10px 2px 15px;
 }
 
-.Calendrier{
+/* .choix_date {
+    padding: 5px 0;
+} */
+
+.calendrier{
     color: black;
 }

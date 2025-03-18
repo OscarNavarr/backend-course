@@ -1,7 +1,10 @@
 from typing import Union
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+# from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import psycopg2
+import pytest
 
 connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", password="Aucun66", host="localhost", port=5432)
 
@@ -69,10 +72,27 @@ def read_cons():
 def read_cons():
     return {"salles" : salles_record}
 
+# @app.get("/items/{item_id}")
+# def read_item(item_id: int, q: Union[str, None] = None):
+#     return {"item_id": item_id, "q": q}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+app.mount("/src", StaticFiles(directory="src", html=True), name="src")
+
+
+# You can add additional URLs to this list, for example, the frontend's production domain, or other frontends.
+# allowed_origins = [
+#     "http://localhost:5500"
+# ]
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=allowed_origins,
+#     allow_credentials=True,
+#     allow_methods=["GET", "POST", "PUT", "DELETE"],
+#     allow_headers=["X-Requested-With", "Content-Type"],
+# )
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host='127.0.0.1', port=8000)
+

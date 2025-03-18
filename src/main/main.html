@@ -10,15 +10,21 @@
 <body>
     <header>
         <h3>PLANNING IMERIR:</h3>
-        <div>CHOISISSEZ VOTRE PLANNING:</div>
+        <div class="choix_date">
+            <span>CHOISISSEZ VOTRE PLANNING:</span>
+            <input type="date">
+        </div>
     </header>
     <main>    
-        <ul class="Calendrier">
+        <ul class="calendrier">
             <div>
-                Je ne sais pas, je ne sais plus
+                planning du <span class="selected_date"></span> : 
             </div>
         </ul>
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
