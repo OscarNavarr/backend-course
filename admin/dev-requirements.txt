@@ -1,0 +1,5 @@
+fastapi[standard]
+uvicorn[standard]
+psycopg2
+-U pytest           # Framework de tests
+flake8              # Linter pour vérifier le code

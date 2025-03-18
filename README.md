@@ -13,7 +13,6 @@ Pour faire fonctionner le programme, merci d'installer les addons suivants avec 
 - fastapi[standard]
 - uvicorn[standard]
 - psycopg2
-- -U pytest
 
 Les addons se trouvent aussi dans le fichier 'requirements.txt'
 
