@@ -1,54 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Consultas</title>
-    <link rel="stylesheet" href="/static/style.css"> <!-- Si tienes un archivo CSS -->
-</head>
-<body>
-    <h1>Consultas de Base de Datos</h1>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    
+  </head>
+  <body>
+    <div id='calendar'></div>
+    <script>
+      window.events = [];
+    </script>
+    <script src="static/js/fetch_cours.js"></script>
+    <script>
 
-    <h2>Consultations</h2>
-    <ul>
-        {% for row in consultations %}
-            <li>{{ row }}</li>
-        {% endfor %}
-    </ul>
+      console.log("events", events);
 
-    <h2>Enseignants</h2>
-    <ul>
-        {% for row in enseignants %}
-            <li>{{ row }}</li>
-        {% endfor %}
-    </ul>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
 
-    <h2>Cours</h2>
-    <ul>
-        {% for row in cours %}
-            <li>{{ row }}</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Promotions</h2>
-    <ul>
-        {% for row in promotions %}
-            <li>{{ row }}</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Utilisateurs</h2>
-    <ul>
-        {% for row in utilisateurs %}
-            <li>{{ row }}</li>
-        {% endfor %}
-    </ul>
-
-    <h2>Salles</h2>
-    <ul>
-        {% for row in salles %}
-            <li>{{ row }}</li>
-        {% endfor %}
-    </ul>
-</body>
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'timeGridWeek', // Cambiado a vista semanal
+          events: [...events],
+        });
+        calendar.render();
+      });
+    </script>
+  </body>
 </html>

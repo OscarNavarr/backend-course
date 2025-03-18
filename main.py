@@ -33,7 +33,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="src/main")
 
 # config static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="src/main/static"), name="static")
 
 # public_url = ngrok.connect(8000)
 # print(f"🔗 Public URL: {public_url}")
