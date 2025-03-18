@@ -2,6 +2,7 @@ from typing import Union
 from fastapi import FastAPI, HTTPException
 import uvicorn
 import psycopg2
+import pytest
 
 connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", password="Aucun66", host="localhost", port=5432)
 
