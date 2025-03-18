@@ -1,6 +1,6 @@
 ## Base de donnée
 
-Nom de l'hébergeur de l base de donnée utilisé: postGrey
+Nom de l'hébergeur de l base de donnée utilisé: postGre
 
 ## Addons à installer:
 
