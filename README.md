@@ -1,6 +1,10 @@
+## Sujet
+Ce site est un devoir visant à créer un planning dynamique en ligne relié à une base de donnée.
+Clickez [ici](SUJET.md) pour voir le sujet.
+
 ## Base de donnée
 
-Nom de l'hébergeur de l base de donnée utilisé: postGreSQL
+Pour ce projet, nous avons utilisé PostgreSQL. C'est un logiciel qui permet de créer une base de donnée gratuitement, ce qui permet ensuite d'aller chercher des informations à l'interrieur.
 
 ## Addons à installer:
 
