@@ -1,23 +1,16 @@
-from typing import Union
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-# from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 import psycopg2
-import pytest
+import uvicorn
+
+# from pyngrok import ngrok
 
 connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", password="Aucun66", host="localhost", port=5432)
 
 cursor = connection.cursor()
-
-# cursor.execute("""
-#     SELECT * from public.consultations
-#     SELECT * from public.enseignants;"
-#     SELECT * from public.cours;" +
-#     SELECT * from public.promotions;" 
-#     SELECT * from public.utilisateurs;
-#     SELECT * from public.salles;"""
-# )
 
 cursor.execute("SELECT * from public.consultations;")
 cons_record = cursor.fetchall()
@@ -36,17 +29,27 @@ print("Data from Database:- ", cons_record)
 
 app = FastAPI()
 
+# config html templates
+templates = Jinja2Templates(directory="src/main")
 
-@app.get("/")
-def read_root():
-    return {
+# config static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# public_url = ngrok.connect(8000)
+# print(f"🔗 Public URL: {public_url}")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {
+            "request": request,
             "consultations" : cons_record,
             "enseignants" : ens_record,
             "cours" : cours_record,
             "promotions" : promo_record,
             "utilisateurs" : users_record,
             "salles" : salles_record
-        }
+        })
 
 @app.get("/consultations")
 def read_cons():
@@ -71,26 +74,6 @@ def read_cons():
 @app.get("/salles")
 def read_cons():
     return {"salles" : salles_record}
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
-
-app.mount("/src", StaticFiles(directory="src", html=True), name="src")
-
-
-# You can add additional URLs to this list, for example, the frontend's production domain, or other frontends.
-# allowed_origins = [
-#     "http://localhost:5500"
-# ]
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=allowed_origins,
-#     allow_credentials=True,
-#     allow_methods=["GET", "POST", "PUT", "DELETE"],
-#     allow_headers=["X-Requested-With", "Content-Type"],
-# )
 
 
 if __name__ == "__main__":

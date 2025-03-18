@@ -13,7 +13,7 @@ $(".choix_date input[type=date]").on('change', function(){
 //     }
 // );
 
-fetch('http://localhost:8000/')
+fetch('http://localhost:32000/')
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error('Error:', error));
