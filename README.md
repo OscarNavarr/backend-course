@@ -1,6 +1,6 @@
 ## Base de donnée
 
-Nom de l'hébergeur de l base de donnée utilisé: postGre
+Nom de l'hébergeur de l base de donnée utilisé: postGreSQL
 
 ## Addons à installer:
 
