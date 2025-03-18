@@ -4,7 +4,7 @@ Nom de l'hébergeur de l base de donnée utilisé: postGrey
 
 ## Addons à installer:
 
-Pour faire fonctionner le programme, merci d'installer les addons suivants:
+Pour faire fonctionner le programme, merci d'installer les addons suivants avec la commande 'api install' dans le terminal:
 
 - fastapi[standard]
 - uvicorn[standard]
