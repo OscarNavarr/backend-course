@@ -5,19 +5,11 @@ from fastapi.staticfiles import StaticFiles
 import uvicorn
 import psycopg2
 import pytest
+# from pyngrok import ngrok
 
 connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", password="Aucun66", host="localhost", port=5432)
 
 cursor = connection.cursor()
-
-# cursor.execute("""
-#     SELECT * from public.consultations
-#     SELECT * from public.enseignants;"
-#     SELECT * from public.cours;" +
-#     SELECT * from public.promotions;" 
-#     SELECT * from public.utilisateurs;
-#     SELECT * from public.salles;"""
-# )
 
 cursor.execute("SELECT * from public.consultations;")
 cons_record = cursor.fetchall()
@@ -35,6 +27,9 @@ salles_record = cursor.fetchall()
 print("Data from Database:- ", cons_record)
 
 app = FastAPI()
+
+# public_url = ngrok.connect(8000)
+# print(f"🔗 Public URL: {public_url}")
 
 
 @app.get("/")
@@ -71,26 +66,6 @@ def read_cons():
 @app.get("/salles")
 def read_cons():
     return {"salles" : salles_record}
-
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Union[str, None] = None):
-#     return {"item_id": item_id, "q": q}
-
-app.mount("/src", StaticFiles(directory="src", html=True), name="src")
-
-
-# You can add additional URLs to this list, for example, the frontend's production domain, or other frontends.
-# allowed_origins = [
-#     "http://localhost:5500"
-# ]
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=allowed_origins,
-#     allow_credentials=True,
-#     allow_methods=["GET", "POST", "PUT", "DELETE"],
-#     allow_headers=["X-Requested-With", "Content-Type"],
-# )
 
 
 if __name__ == "__main__":
