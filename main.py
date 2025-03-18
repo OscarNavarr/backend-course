@@ -1,10 +1,11 @@
-from typing import Union
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-# from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
 import psycopg2
-import pytest
+import uvicorn
+
 # from pyngrok import ngrok
 
 connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", password="Aucun66", host="localhost", port=5432)
@@ -28,20 +29,27 @@ print("Data from Database:- ", cons_record)
 
 app = FastAPI()
 
+# config html templates
+templates = Jinja2Templates(directory="src/main")
+
+# config static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # public_url = ngrok.connect(8000)
 # print(f"🔗 Public URL: {public_url}")
 
 
-@app.get("/")
-def read_root():
-    return {
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {
+            "request": request,
             "consultations" : cons_record,
             "enseignants" : ens_record,
             "cours" : cours_record,
             "promotions" : promo_record,
             "utilisateurs" : users_record,
             "salles" : salles_record
-        }
+        })
 
 @app.get("/consultations")
 def read_cons():

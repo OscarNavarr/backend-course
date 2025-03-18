@@ -1,4 +1,3 @@
 fastapi[standard]
 uvicorn[standard]
 psycopg2
--U pytest
