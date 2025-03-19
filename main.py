@@ -35,7 +35,7 @@ app.mount("/static", StaticFiles(directory="src/main/static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {
+    return templates.TemplateResponse({
             "request": request,
             "consultations" : cons_record,
             "enseignants" : ens_record,
@@ -43,7 +43,7 @@ async def read_root(request: Request):
             "promotions" : promo_record,
             "utilisateurs" : users_record,
             "salles" : salles_record
-        })
+        }, "index.html")
 
 @app.get("/consultations")
 def read_cons():
