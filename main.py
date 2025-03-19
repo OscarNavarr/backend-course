@@ -65,5 +65,5 @@ def read_salles():
 
 # Code éxecuté au lancement de l'application
 if __name__ == "__main__":
-    uvicorn.run(app, host='127.0.0.1', port=8000) # Lancement du server
-
+    uvicorn.run(app, host="0.0.0.0", port=8000) # Lancement du server version sans fil local
+    # uvicorn.run(app, host='127.0.0.1', port=8000) # Lancement du server version local
