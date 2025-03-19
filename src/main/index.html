@@ -3,27 +3,62 @@
   <head>
     <meta charset='utf-8' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <div id='calendar'></div>
-    <script>
-      window.events = [];
-    </script>
+    <div class="w-full h-full relative">
+      <div id='calendar'></div>
+
+      <!-- Modal -->
+      <div id="modal-container" class="w-full h-full absolute right-0 top-0 hidden">
+        <div class="w-full h-full absolute right-0 top-0 z-[2] bg-[#000000] opacity-25"></div>
+        <div class="w-[40rem] min-h-[30rem] rounded-md bg-white absolute left-0 right-0 mx-auto z-[3] top-[10rem]">
+          
+          <!-- Modal Header -->
+          <div class="flex w-full">
+            <p class="text-3xl text-bold mt-2 ml-8">Détails du cours</p>
+            <button 
+              class="ml-auto text-2xl rounded-full border-[0.1rem] border-black px-2 mt-2 mr-2 cursor-pointer" 
+              onclick="closeModal()"
+            >X</button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="m-10">
+            <div>
+              <p class="text-xl mt-2 ml-2">Nom du cours:</p>
+              <p id="modal-course-name" class="text-lg mt-2 ml-2 bg-[#eeebeb] rounded-md py-1 px-2 w-full">Algo</p>
+            </div>
+
+            <div class="mt-6">
+              <p class="text-xl mt-2 ml-2">Nom de l'enseignant</p>
+              <p id="modal-teacher-name" class="text-lg mt-2 ml-2 bg-[#eeebeb] rounded-md py-1 px-2 w-full">M. Jean</p>
+            </div>
+
+            <div class="mt-6">
+              <p class="text-xl mt-2 ml-2">Salle</p>
+              <p id="modal-room-name" class="text-lg mt-2 ml-2 bg-[#eeebeb] rounded-md py-1 px-2 w-full">FabLab</p>
+            </div>
+
+            <div class="mt-6 flex justify-between">
+              <div class="w-[50%]">
+                <p class="text-xl mt-2 ml-2">Heure de debut</p>
+                <p id="modal-start-time" class="text-lg mt-2 ml-2 bg-[#eeebeb] rounded-md py-1 px-2">08:00</p>
+              </div>
+              <div class="w-[50%]">
+                <p class="text-xl mt-2 ml-2">Heure de fin</p>
+                <p id="modal-end-time" class="text-lg mt-2 ml-2 bg-[#eeebeb] rounded-md py-1 px-2 ">12:00</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+
+    <script src="static/js/handle_front.js"></script>
     <script src="static/js/fetch_cours.js"></script>
-    <script>
-
-      console.log("events", events);
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'timeGridWeek', // Cambiado a vista semanal
-          events: [...events],
-        });
-        calendar.render();
-      });
-    </script>
+    
   </body>
 </html>

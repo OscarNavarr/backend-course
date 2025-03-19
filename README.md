@@ -7,9 +7,9 @@ Clickez [ici](SUJET.md) pour voir le sujet.
 Pour ce projet, nous avons utilisé PostgreSQL. C'est un logiciel qui permet de créer une base de donnée gratuitement, ce qui permet ensuite d'aller chercher des informations à l'interrieur.
 
 ## Dans la terminal ajouter
--python -m venv .venv
--source .venv/bin/activate
-
+- python -m venv .venv
+- source .venv/bin/activate
+- python main.py
 ## Addons à installer:
 
 Pour faire fonctionner le programme, merci d'installer les addons suivants avec la commande 'api install' dans le terminal:
