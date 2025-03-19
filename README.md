@@ -1,4 +1,4 @@
-## Sujet
+# Sujet
 Ce site est un devoir visant à créer un planning dynamique en ligne relié à une base de donnée.
 Clickez [ici](SUJET.md) pour voir le sujet.
 
@@ -17,6 +17,7 @@ Pour faire fonctionner le programme, merci d'installer les addons suivants avec 
 - fastapi[standard]
 - uvicorn[standard]
 - psycopg2
+- Jinja2
 
 Les addons se trouvent aussi dans le fichier 'requirements.txt'
 

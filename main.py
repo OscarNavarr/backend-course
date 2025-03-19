@@ -6,8 +6,6 @@ from fastapi import Request
 import psycopg2
 import uvicorn
 
-# from pyngrok import ngrok
-
 connection = psycopg2.connect(database="val_max_alex_oscar", user="postgres", password="Aucun66", host="localhost", port=5432)
 
 cursor = connection.cursor()
@@ -34,10 +32,6 @@ templates = Jinja2Templates(directory="src/main")
 
 # config static files
 app.mount("/static", StaticFiles(directory="src/main/static"), name="static")
-
-# public_url = ngrok.connect(8000)
-# print(f"🔗 Public URL: {public_url}")
-
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
